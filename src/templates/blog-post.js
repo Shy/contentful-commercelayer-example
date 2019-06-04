@@ -1,4 +1,5 @@
 import React from 'react'
+import * as CLayer from 'commercelayer-react'
 import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import get from 'lodash/get'
@@ -9,7 +10,7 @@ import heroStyles from '../components/hero.module.css'
 
 class BlogPostTemplate extends React.Component {
   render() {
-    const post = get(this.props, 'data.contentfulBlogPost')
+    const post = get(this.props, 'data.contentfulProductItem')
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
 
     return (
@@ -26,7 +27,6 @@ class BlogPostTemplate extends React.Component {
                 display: 'block',
               }}
             >
-              {post.publishDate}
             </p>
             <div
               dangerouslySetInnerHTML={{
@@ -35,6 +35,60 @@ class BlogPostTemplate extends React.Component {
             />
           </div>
         </div>
+
+// <div>
+//     <hr/>
+//     <CLayer.Price skuCode="{post.commerceLayerSku.code}"/>
+//     <hr/>
+//     <CLayer.AvailabilityMessage
+//       availableTemplate={
+//         <div>
+//           Available in <CLayer.AvailabilityMessageMinDays />-<CLayer.AvailabilityMessageMaxDays /> days with <CLayer.AvailabilityMessageShippingMethodName /> (<CLayer.AvailabilityMessageShippingMethodPrice/>)
+//         </div>
+//       }
+//       unavailableTemplate={
+//         <p>The selected SKU is not available</p>
+//       } />
+//     <hr/>
+//     <CLayer.AddToBag />
+//     <hr/>
+//     <CLayer.ShoppingBagItemsCount />
+//     <CLayer.ShoppingBagSubtotal />
+//     <CLayer.ShoppingBagShipping />
+//     <CLayer.ShoppingBagPayment />
+//     <CLayer.ShoppingBagDiscount />
+//     <CLayer.ShoppingBagTaxes />
+//     <CLayer.ShoppingBagTotal />
+//     <hr/>
+//     <CLayer.ShoppingBagItems
+//       itemTemplate={
+//         <div>
+//           <CLayer.ShoppingBagItemImage />
+//           <CLayer.ShoppingBagItemName />
+//           <CLayer.ShoppingBagItemUnitAmount />
+//           <CLayer.ShoppingBagItemQtyContainer />
+//           <CLayer.ShoppingBagItemRemove />
+//           <CLayer.ShoppingBagItemTotalAmount />
+//         </div>
+//       }
+//     />
+//     <hr/>
+//     <CLayer.Checkout/>
+//     <hr/>
+//     <CLayer.Config
+//       baseUrl="https://contentful-sticker-store.commercelayer.io"
+//       clientId="9c1f3ca3a5773df648349cd5c389ad766f42a8326ef7dac32d91b0f40519494e"
+//       marketId="823"
+//       countryCode="US"
+//       languageCode="EN"
+//       cartUrl="https://example.com/cart"
+//       returnUrl="https://example.com/return"
+//       privacyUrl="https://example.com/privacy"
+//       termsUrl="https://example.com/terms"/>
+//   </div>
+
+
+
       </Layout>
     )
   }
@@ -49,8 +103,11 @@ export const pageQuery = graphql`
         title
       }
     }
-    contentfulBlogPost(slug: { eq: $slug }) {
+    contentfulProductItem(slug: { eq: $slug }) {
       title
+      commerceLayerSku {
+        code
+      }
       publishDate(formatString: "MMMM Do, YYYY")
       heroImage {
         fluid(maxWidth: 1180, background: "rgb:000000") {

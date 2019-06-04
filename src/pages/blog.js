@@ -9,17 +9,17 @@ import ArticlePreview from '../components/article-preview'
 class BlogIndex extends React.Component {
   render() {
     const siteTitle = get(this, 'props.data.site.siteMetadata.title')
-    const posts = get(this, 'props.data.allContentfulBlogPost.edges')
+    const posts = get(this, 'props.data.allContentfulProductItem.edges')
 
     return (
       <Layout location={this.props.location} >
         <div style={{ background: '#fff' }}>
           <Helmet title={siteTitle} />
           <div className={styles.hero}>
-            Blog
+            Products
           </div>
           <div className="wrapper">
-            <h2 className="section-headline">Recent articles</h2>
+            <h2 className="section-headline">Recent Products</h2>
             <ul className="article-list">
               {posts.map(({ node }) => {
                 return (
@@ -45,7 +45,7 @@ export const pageQuery = graphql`
         title
       }
     }
-    allContentfulBlogPost(sort: { fields: [publishDate], order: DESC }) {
+    allContentfulProductItem(sort: { fields: [publishDate], order: DESC }) {
       edges {
         node {
           title
@@ -53,7 +53,7 @@ export const pageQuery = graphql`
           publishDate(formatString: "MMMM Do, YYYY")
           tags
           heroImage {
-            fluid(maxWidth: 350, maxHeight: 196, resizingBehavior: SCALE) {
+            fluid(maxWidth: 350, maxHeight: 196, resizingBehavior: FILL,cropFocus:FACE) {
               ...GatsbyContentfulFluid_tracedSVG
             }
           }
