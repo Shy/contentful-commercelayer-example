@@ -12,6 +12,7 @@ class BlogPostTemplate extends React.Component {
   render() {
     const post = get(this.props, 'data.contentfulProductItem')
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
+    const availabilityMessage = "availability-message-".concat(post.commerceLayerSku.code)
 
     return (
       <Layout location={this.props.location} >
@@ -33,63 +34,81 @@ class BlogPostTemplate extends React.Component {
                 __html: post.body.childMarkdownRemark.html,
               }}
             />
-          </div>
+
+
+          <div>
+          Price: <CLayer.Price skuCode={post.commerceLayerSku.code} />
+
+          <CLayer.AddToBag skuCode={post.commerceLayerSku.code}
+                           AvailabilityMessageContainerId={availabilityMessage} />
+
+          <CLayer.AvailabilityMessageContainer id={availabilityMessage} />
+
+
+          <hr/>
+
+          <dl>
+            <dt>Items</dt>
+            <dd><CLayer.ShoppingBagItemsCount /></dd>
+            <dt>Subtotal</dt>
+            <dd><CLayer.ShoppingBagSubtotal /></dd>
+            <dt>Shipping</dt>
+            <dd><CLayer.ShoppingBagShipping /></dd>
+            <dt>Payment</dt>
+            <dd><CLayer.ShoppingBagPayment /></dd>
+            <dt>Discount</dt>
+            <dd><CLayer.ShoppingBagDiscount /></dd>
+            <dt>Taxes</dt>
+            <dd><CLayer.ShoppingBagTaxes /></dd>
+            <dt>Total</dt>
+            <dd><CLayer.ShoppingBagTotal /></dd>
+          </dl>
+
+          <hr/>
+
+          <CLayer.ShoppingBagItems
+            itemTemplate={
+              <div>
+                <CLayer.ShoppingBagItemImage />
+                <CLayer.ShoppingBagItemName />
+                <CLayer.ShoppingBagItemUnitAmount />
+                <CLayer.ShoppingBagItemQtyContainer />
+                <CLayer.ShoppingBagItemRemove />
+                <CLayer.ShoppingBagItemTotalAmount />
+              </div>
+            }
+          />
+
+          <hr/>
+
+          <CLayer.Checkout/>
+
+          <hr/>
+
+          <CLayer.AvailabilityMessageUnavailableTemplate
+            unavailableTemplate={
+              <p>Not Available</p>
+            }
+          />
+
+
+          <CLayer.Config
+            baseUrl="https://contentful-sticker-store.commercelayer.io"
+            clientId="9c1f3ca3a5773df648349cd5c389ad766f42a8326ef7dac32d91b0f40519494e"
+            marketId="823"
+            countryCode="US"
+            languageCode="en"
+            cartUrl="https://example.com/cart"
+            returnUrl="https://example.com/return"
+            privacyUrl="https://example.com/privacy"
+            termsUrl="https://example.com/terms" />
+        </div>
+        </div>
         </div>
 
-// <div>
-//     <hr/>
-//     <CLayer.Price skuCode="{post.commerceLayerSku.code}"/>
-//     <hr/>
-//     <CLayer.AvailabilityMessage
-//       availableTemplate={
-//         <div>
-//           Available in <CLayer.AvailabilityMessageMinDays />-<CLayer.AvailabilityMessageMaxDays /> days with <CLayer.AvailabilityMessageShippingMethodName /> (<CLayer.AvailabilityMessageShippingMethodPrice/>)
-//         </div>
-//       }
-//       unavailableTemplate={
-//         <p>The selected SKU is not available</p>
-//       } />
-//     <hr/>
-//     <CLayer.AddToBag />
-//     <hr/>
-//     <CLayer.ShoppingBagItemsCount />
-//     <CLayer.ShoppingBagSubtotal />
-//     <CLayer.ShoppingBagShipping />
-//     <CLayer.ShoppingBagPayment />
-//     <CLayer.ShoppingBagDiscount />
-//     <CLayer.ShoppingBagTaxes />
-//     <CLayer.ShoppingBagTotal />
-//     <hr/>
-//     <CLayer.ShoppingBagItems
-//       itemTemplate={
-//         <div>
-//           <CLayer.ShoppingBagItemImage />
-//           <CLayer.ShoppingBagItemName />
-//           <CLayer.ShoppingBagItemUnitAmount />
-//           <CLayer.ShoppingBagItemQtyContainer />
-//           <CLayer.ShoppingBagItemRemove />
-//           <CLayer.ShoppingBagItemTotalAmount />
-//         </div>
-//       }
-//     />
-//     <hr/>
-//     <CLayer.Checkout/>
-//     <hr/>
-//     <CLayer.Config
-//       baseUrl="https://contentful-sticker-store.commercelayer.io"
-//       clientId="9c1f3ca3a5773df648349cd5c389ad766f42a8326ef7dac32d91b0f40519494e"
-//       marketId="823"
-//       countryCode="US"
-//       languageCode="EN"
-//       cartUrl="https://example.com/cart"
-//       returnUrl="https://example.com/return"
-//       privacyUrl="https://example.com/privacy"
-//       termsUrl="https://example.com/terms"/>
-//   </div>
-
-
-
       </Layout>
+
+
     )
   }
 }
