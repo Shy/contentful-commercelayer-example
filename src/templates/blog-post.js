@@ -43,19 +43,24 @@ class BlogPostTemplate extends React.Component {
             <CLayer.AddToBag skuCode={post.commerceLayerSku.code}
                            AvailabilityMessageContainerId={availabilityMessage}/>
 
-
-
-
           <hr/>
 
           <CLayer.ShoppingBagItems
             itemTemplate={
               <div>
-                <CLayer.ShoppingBagItemName />
-                <CLayer.ShoppingBagItemUnitAmount />
-                <CLayer.ShoppingBagItemQtyContainer />
-                <CLayer.ShoppingBagItemRemove />
-                <CLayer.ShoppingBagItemTotalAmount />
+              <table >
+
+              <tr>
+                <td width="40%" align="left"><CLayer.ShoppingBagItemName /></td>
+                <td width="20%" align="left"><CLayer.ShoppingBagItemUnitAmount /></td>
+                <td width="20%" align="left"><CLayer.ShoppingBagItemQtyContainer /></td>
+                <td width="20%" align="right"><CLayer.ShoppingBagItemTotalAmount /></td>
+              </tr>
+              <tr>
+                <td width="100%" align="left"><CLayer.ShoppingBagItemRemove /></td>
+              </tr>
+                </table>
+
               </div>
             }
           />
