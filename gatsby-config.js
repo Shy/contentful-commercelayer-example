@@ -21,7 +21,7 @@ if (!spaceId || !accessToken) {
 
 module.exports = {
   siteMetadata: {
-    title: 'Gatsby Contentful starter',
+    title: 'Gatsby Contentful Commerce Layer Example',
   },
   pathPrefix: '/gatsby-contentful-starter',
   plugins: [
