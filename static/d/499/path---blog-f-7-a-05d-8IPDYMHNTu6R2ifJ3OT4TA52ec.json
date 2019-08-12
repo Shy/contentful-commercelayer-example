@@ -1,0 +1,1 @@
+{"errors":[{"message":"Cannot query field \"allContentfulBlogPost\" on type \"Query\".","locations":[{"line":7,"column":3}]},{"message":"Unknown type \"ContentfulFluid\".","locations":[{"line":29,"column":45}]}],"pageContext":{"isCreatedByStatefulCreatePages":true}}
