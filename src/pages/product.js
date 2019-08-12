@@ -53,8 +53,8 @@ export const pageQuery = graphql`
           publishDate(formatString: "MMMM Do, YYYY")
           tags
           heroImage {
-            fluid(maxWidth: 350, maxHeight: 196, resizingBehavior: FILL,cropFocus:FACE) {
-              ...GatsbyContentfulFluid_tracedSVG
+            fluid(maxWidth: 350, maxHeight: 196, resizingBehavior: FILL) {
+             ...GatsbyContentfulFluid_tracedSVG
             }
           }
           description {
